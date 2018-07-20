@@ -153,13 +153,13 @@ public class CatalogActivity extends AppCompatActivity {
         // Create a ContentValues object where column names are the keys,
         // and Toto's book attributes are the values.
         ContentValues values = new ContentValues();
-        values.put(BookEntry.COLUMN_BOOK_NAME, "boknamn");
+        values.put(BookEntry.COLUMN_BOOK_NAME, "bookname");
         values.put(BookEntry.COLUMN_BOOK_PRICE, 78);
         values.put(BookEntry.COLUMN_BOOK_QUANTITY, BookEntry.QUANTITY_IN_STOCK);
         values.put(BookEntry.COLUMN_BOOK_SUPPLIER, "adlibris");
-        values.put(BookEntry.COLUMN_BOOK_PHONE, 073676);
+        values.put(BookEntry.COLUMN_BOOK_PHONE, 7457);
 
-        // Insert a new row for Toto in the database, returning the ID of that new row.
+        // Insert a new row for Book in the database, returning the ID of that new row.
         // The first argument for db.insert() is the books table name.
         // The second argument provides the name of a column in which the framework
         // can insert NULL in the event that the ContentValues is empty (if
