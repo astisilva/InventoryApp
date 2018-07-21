@@ -49,7 +49,7 @@ public final class BookContract {
          *
          * Type: TEXT
          */
-        public final static String COLUMN_BOOK_NAME ="Book name";
+        public final static String COLUMN_BOOK_NAME ="Book_name";
 
         /**
          * Price of the book.

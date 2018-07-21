@@ -151,9 +151,9 @@ public class CatalogActivity extends AppCompatActivity {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         // Create a ContentValues object where column names are the keys,
-        // and Toto's book attributes are the values.
+        // and Prince's book attributes are the values.
         ContentValues values = new ContentValues();
-        values.put(BookEntry.COLUMN_BOOK_NAME, "bookname");
+        values.put(BookEntry.COLUMN_BOOK_NAME, "Prince");
         values.put(BookEntry.COLUMN_BOOK_PRICE, 78);
         values.put(BookEntry.COLUMN_BOOK_QUANTITY, BookEntry.QUANTITY_IN_STOCK);
         values.put(BookEntry.COLUMN_BOOK_SUPPLIER, "adlibris");
@@ -165,7 +165,7 @@ public class CatalogActivity extends AppCompatActivity {
         // can insert NULL in the event that the ContentValues is empty (if
         // this is set to "null", then the framework will not insert a row when
         // there are no values).
-        // The third argument is the ContentValues object containing the info for Toto.
+        // The third argument is the ContentValues object containing the info for bookname-Prince.
         long newRowId = db.insert(BookEntry.TABLE_NAME, null, values);
     }
 

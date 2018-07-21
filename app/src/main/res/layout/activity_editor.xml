@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2016 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2016 The Android Open Source Project
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
@@ -9,10 +8,8 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
--->
-<!-- Layout for the editor -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+--><!-- Layout for the editor -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,30 +25,24 @@
 
         <!-- Label -->
         <TextView
-            android:text="@string/category_name"
-            style="@style/CategoryStyle" />
+            style="@style/CategoryStyle"
+            android:text="@string/category_name" />
 
         <!-- Input fields -->
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:paddingLeft="4dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
 
             <!-- Name field -->
             <EditText
                 android:id="@+id/edit_book_name"
+                style="@style/EditorFieldStyle"
                 android:hint="@string/hint_book_name"
-                android:inputType="textCapWords"
-                style="@style/EditorFieldStyle" />
+                android:inputType="textCapWords" />
 
-            <!-- Supplier field -->
-            <EditText
-                android:id="@+id/edit_book_supplier"
-                android:hint="@string/hint_book_supplier"
-                android:inputType="textCapWords"
-                style="@style/EditorFieldStyle" />
         </LinearLayout>
     </LinearLayout>
 
@@ -64,27 +55,27 @@
 
         <!-- Label -->
         <TextView
-            android:text="@string/category_quantity"
-            style="@style/CategoryStyle" />
+            style="@style/CategoryStyle"
+            android:text="@string/category_quantity" />
 
         <!-- Input field -->
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
             android:orientation="vertical">
 
             <!-- Gender drop-down spinner -->
             <Spinner
                 android:id="@+id/spinner_quantity"
-                android:layout_height="48dp"
                 android:layout_width="wrap_content"
+                android:layout_height="48dp"
                 android:paddingRight="16dp"
-                android:spinnerMode="dropdown"/>
+                android:spinnerMode="dropdown" />
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Measurement category -->
+    <!-- price category -->
     <LinearLayout
         android:id="@+id/container_price"
         android:layout_width="match_parent"
@@ -92,37 +83,89 @@
         android:orientation="horizontal">
 
         <!-- Label -->
-             <TextView
-            android:text="@string/category_price"
-            style="@style/CategoryStyle" />
+        <TextView
+            style="@style/CategoryStyle"
+            android:text="@string/category_price" />
 
         <!-- Input fields -->
         <RelativeLayout
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
             android:paddingLeft="4dp">
 
             <!-- book price field -->
             <EditText
                 android:id="@+id/edit_book_price"
+                style="@style/EditorFieldStyle"
                 android:hint="@string/hint_book_price"
-                android:inputType="number"
-                style="@style/EditorFieldStyle" />
+                android:inputType="number" />
 
-            <!-- Units for weight (kr) -->
+            <!-- Units for price (kr) -->
             <TextView
                 android:id="@+id/label_price_units"
-                android:text="@string/unit_book_price"
-                style="@style/EditorUnitsStyle"/>
-
-            <EditText
-                android:id="@+id/edit_book_phone"
-                android:hint="@string/hint_book_phone"
-                android:inputType="number"
-                style="@style/EditorFieldStyle" />
+                style="@style/EditorUnitsStyle"
+                android:text="@string/unit_book_price" />
 
 
         </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/container_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Label phone -->
+        <TextView
+            style="@style/CategoryStyle"
+            android:text="@string/category_phone" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
+
+            <EditText
+                android:id="@+id/edit_book_phone"
+                style="@style/EditorFieldStyle"
+                android:hint="@string/hint_book_phone"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/container_supplier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Label phone -->
+        <TextView
+            style="@style/CategoryStyle"
+            android:text="@string/category_supplier" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
+            <!-- Supplier field -->
+            <EditText
+                android:id="@+id/edit_book_supplier"
+                style="@style/EditorFieldStyle"
+                android:hint="@string/hint_book_supplier"
+                android:inputType="textCapWords" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
