@@ -42,7 +42,7 @@
     <string name="category_phone">Phone</string>
 
     <!-- Label for supplier information in the editor [CHAR LIMIT=30] -->
-    <string name="category_supplier">Phone</string>
+    <string name="category_supplier">Supplier</string>
 
     <!-- Text hint for name field in the editor [CHAR LIMIT=30] -->
     <string name="hint_book_name">Name</string>

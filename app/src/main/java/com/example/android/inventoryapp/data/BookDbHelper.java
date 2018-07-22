@@ -31,7 +31,7 @@ public class BookDbHelper extends SQLiteOpenHelper {
     /**
      * Name of the database file
      */
-    private static final String DATABASE_NAME = "books.db";
+    private static final String DATABASE_NAME = "booksV2.db";
 
     /**
      * Database version. If you change the database schema, you must increment the database version.
@@ -56,7 +56,7 @@ public class BookDbHelper extends SQLiteOpenHelper {
                 + BookEntry.COLUMN_BOOK_NAME + " TEXT NOT NULL, "
                 + BookEntry.COLUMN_BOOK_PRICE + " INTEGER, "
                 + BookEntry.COLUMN_BOOK_QUANTITY + " INTEGER NOT NULL, "
-                + BookEntry.COLUMN_BOOK_SUPPLIER + " TEXT NOT NULL DEFAULT 0);"
+                + BookEntry.COLUMN_BOOK_SUPPLIER + " TEXT NOT NULL DEFAULT 0, "
                 + BookEntry.COLUMN_BOOK_PHONE + " INTEGER NOT NULL DEFAULT 0);";
 
         // Execute the SQL statement
