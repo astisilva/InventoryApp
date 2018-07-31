@@ -15,28 +15,44 @@
  */
 package com.example.android.inventoryapp;
 
+import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+
 import com.example.android.inventoryapp.data.BookContract.BookEntry;
-import com.example.android.inventoryapp.data.BookDbHelper;
+
 
 /**
  * Displays list of books that were entered and stored in the app.
  */
-public class CatalogActivity extends AppCompatActivity {
+public class CatalogActivity extends AppCompatActivity implements
+        LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Database helper that will provide us access to the database */
-    private BookDbHelper mDbHelper;
+    /**
+     * Identifier for the book data loader
+     */
+    private static final int BOOK_LOADER = 0;
+
+    /**
+     * Adapter for the ListView
+     */
+    BookCursorAdapter mCursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,103 +69,46 @@ public class CatalogActivity extends AppCompatActivity {
             }
         });
 
-        // To access our database, we instantiate our subclass of SQLiteOpenHelper
-        // and pass the context, which is the current activity.
-        mDbHelper = new BookDbHelper(this);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        displayDatabaseInfo();
-    }
+        // Find the ListView which will be populated with the book data
+        ListView bookListView = (ListView) findViewById(R.id.list);
 
-    /**
-     * Temporary helper method to display information in the onscreen TextView about the state of
-     * the books database.
-     */
-    private void displayDatabaseInfo() {
-        // Create and/or open a database to read from it
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
+        View emptyView = findViewById(R.id.empty_view);
+        bookListView.setEmptyView(emptyView);
 
-        // Define a projection that specifies which columns from the database
-        // you will actually use after this query.
-        String[] projection = {
-                BookEntry._ID,
-                BookEntry.COLUMN_BOOK_NAME,
-                BookEntry.COLUMN_BOOK_PRICE,
-                BookEntry.COLUMN_BOOK_QUANTITY,
-                BookEntry.COLUMN_BOOK_SUPPLIER,
-                BookEntry.COLUMN_BOOK_PHONE };
+        // Setup an Adapter to create a list item for each row of book data in the Cursor.
+        // There is no book data yet (until the loader finishes) so pass in null for the Cursor.
+        mCursorAdapter = new BookCursorAdapter(this, null);
+        bookListView.setAdapter(mCursorAdapter);
 
-        // Perform a query on the books table
-        Cursor cursor = db.query(
-                BookEntry.TABLE_NAME,   // The table to query
-                projection,            // The columns to return
-                null,                  // The columns for the WHERE clause
-                null,                  // The values for the WHERE clause
-                null,                  // Don't group the rows
-                null,                  // Don't filter by row groups
-                null);                   // The sort order
+        // Setup the item click listener
+        bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                // Create new intent to go to {@link EditorActivity}
+                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
 
-        TextView displayView = (TextView) findViewById(R.id.text_view_book);
+                // Form the content URI that represents the specific book that was clicked on,
+                // by appending the "id" (passed as input to this method) onto the
+                // {@link BookEntry#CONTENT_URI}.
+                // For example, the URI would be "content://com.example.android.books/books/2"
+                // if the book with ID 2 was clicked on.
+                Uri currentBookUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, id);
 
-        try {
-            // Create a header in the Text View that looks like this:
-            //
-            // The books table contains <number of rows in Cursor> books.
-            // _id - name - breed - gender - weight
-            //
-            // In the while loop below, iterate through the rows of the cursor and display
-            // the information from each column in this order.
-            displayView.setText("The books table contains " + cursor.getCount() + " books.\n\n");
-            displayView.append(BookEntry._ID + " - " +
-                    BookEntry.COLUMN_BOOK_NAME + " - " +
-                    BookEntry.COLUMN_BOOK_PRICE + " - " +
-                    BookEntry.COLUMN_BOOK_QUANTITY + " - " +
-                    BookEntry.COLUMN_BOOK_SUPPLIER+ " - " +
-                    BookEntry.COLUMN_BOOK_PHONE + "\n");
+                // Set the URI on the data field of the intent
+                intent.setData(currentBookUri);
 
-            // Figure out the index of each column
-            int idColumnIndex = cursor.getColumnIndex(BookEntry._ID);
-            int nameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_NAME);
-            int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_PRICE);
-            int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_QUANTITY);
-            int supplierColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_SUPPLIER);
-            int phoneColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_PHONE);
-
-            // Iterate through all the returned rows in the cursor
-            while (cursor.moveToNext()) {
-                // Use that index to extract the String or Int value of the word
-                // at the current row the cursor is on.
-                int currentID = cursor.getInt(idColumnIndex);
-                String currentName = cursor.getString(nameColumnIndex);
-                int currentPrice = cursor.getInt(priceColumnIndex);
-                int currentQuantity = cursor.getInt(quantityColumnIndex);
-                String currentSupplier = cursor.getString(supplierColumnIndex);
-                int currentPhone = cursor.getInt(phoneColumnIndex);
-                // Display the values from each column of the current row in the cursor in the TextView
-                displayView.append(("\n" + currentID + " - " +
-                        currentName + " - " +
-                        currentPrice + " - " +
-                        currentQuantity + " - " +
-                        currentSupplier + " - " +
-                        currentPhone));
+                // Launch the {@link EditorActivity} to display the data for the current book.
+                startActivity(intent);
             }
-        } finally {
-            // Always close the cursor when you're done reading from it. This releases all its
-            // resources and makes it invalid.
-            cursor.close();
-        }
+        });
+
+        // Kick off the loader
+        getLoaderManager().initLoader(BOOK_LOADER, null, this);
     }
 
-    /**
-     * Helper method to insert hardcoded book data into the database. For debugging purposes only.
-     */
     private void insertBook() {
-        // Gets the database in write mode
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
         // Create a ContentValues object where column names are the keys,
         // and Prince's book attributes are the values.
         ContentValues values = new ContentValues();
@@ -159,14 +118,20 @@ public class CatalogActivity extends AppCompatActivity {
         values.put(BookEntry.COLUMN_BOOK_SUPPLIER, "adlibris");
         values.put(BookEntry.COLUMN_BOOK_PHONE, 7457);
 
-        // Insert a new row for Book in the database, returning the ID of that new row.
-        // The first argument for db.insert() is the books table name.
-        // The second argument provides the name of a column in which the framework
-        // can insert NULL in the event that the ContentValues is empty (if
-        // this is set to "null", then the framework will not insert a row when
-        // there are no values).
-        // The third argument is the ContentValues object containing the info for bookname-Prince.
-        long newRowId = db.insert(BookEntry.TABLE_NAME, null, values);
+        // Insert a new row for Prince into the provider using the ContentResolver.
+        // Use the {@link BookEntry#CONTENT_URI} to indicate that we want to insert
+        // into the bookts database table.
+        // Receive the new content URI that will allow us to access Prince's data in the future.
+        Uri newUri = getContentResolver().insert(BookEntry.CONTENT_URI, values);
+    }
+
+
+    /**
+     * Helper method to delete all books in the database.
+     */
+    private void deleteAllBooks() {
+        int rowsDeleted = getContentResolver().delete(BookEntry.CONTENT_URI, null, null);
+        Log.v("CatalogActivity", rowsDeleted + " rows deleted from book database");
     }
 
     @Override
@@ -184,13 +149,41 @@ public class CatalogActivity extends AppCompatActivity {
             // Respond to a click on the "Insert dummy data" menu option
             case R.id.action_insert_dummy_data:
                 insertBook();
-                displayDatabaseInfo();
                 return true;
             // Respond to a click on the "Delete all entries" menu option
             case R.id.action_delete_all_entries:
-                // Do nothing for now
+                deleteAllBooks();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        // Define a projection that specifies the columns from the table we care about.
+        String[] projection = {
+                BookEntry._ID,
+                BookEntry.COLUMN_BOOK_NAME,
+                BookEntry.COLUMN_BOOK_SUPPLIER};
+
+        // This loader will execute the ContentProvider's query method on a background thread
+        return new CursorLoader(this,   // Parent activity context
+                BookEntry.CONTENT_URI,   // Provider content URI to query
+                projection,             // Columns to include in the resulting Cursor
+                null,                   // No selection clause
+                null,                   // No selection arguments
+                null);                  // Default sort order
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        // Update {@link BookCursorAdapter} with this new cursor containing updated book data
+        mCursorAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        // Callback called when the data needs to be deleted
+        mCursorAdapter.swapCursor(null);
     }
 }

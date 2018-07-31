@@ -46,7 +46,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Gender category -->
+    <!-- quantity category -->
     <LinearLayout
         android:id="@+id/container_quantity"
         android:layout_width="match_parent"
@@ -65,7 +65,7 @@
             android:layout_weight="2"
             android:orientation="vertical">
 
-            <!-- Gender drop-down spinner -->
+            <!-- quantity drop-down spinner -->
             <Spinner
                 android:id="@+id/spinner_quantity"
                 android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <!-- Label -->
+        <!-- Label price -->
         <TextView
             style="@style/CategoryStyle"
             android:text="@string/category_price" />
@@ -149,7 +149,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <!-- Label phone -->
+        <!-- Label supplier-->
         <TextView
             style="@style/CategoryStyle"
             android:text="@string/category_supplier" />
