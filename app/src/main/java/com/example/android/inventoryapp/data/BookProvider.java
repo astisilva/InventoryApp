@@ -201,11 +201,11 @@ public class BookProvider extends ContentProvider {
         }
 
         // If the {@link BookEntry#COLUMN_BOOK_QUANTITY} key is present,
-        // check that the gender value is valid.
+        // check that the quantity value is valid.
         if (values.containsKey(BookEntry.COLUMN_BOOK_QUANTITY)) {
             Integer quantity = values.getAsInteger(BookEntry.COLUMN_BOOK_QUANTITY);
             if (quantity == null || !BookEntry.isValidQuantity(quantity)) {
-                throw new IllegalArgumentException("Pet requires valid gender");
+                throw new IllegalArgumentException("Book requires valid quantity");
             }
         }
 

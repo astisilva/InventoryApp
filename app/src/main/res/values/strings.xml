@@ -106,12 +106,14 @@
     <!-- Label for dropdown menu option if the book is out of stock[CHAR LIMIT=20] -->
     <string name="quantity_out_of_stock">Out of stock</string>
 
-    <!-- Toast message in editor when new pet has been successfully inserted [CHAR LIMIT=NONE] -->
+    <!-- Toast message in editor when new book has been successfully inserted [CHAR LIMIT=NONE] -->
     <string name="editor_insert_book_successful">Book saved</string>
 
-    <!-- Toast message in editor when new pet has failed to be inserted [CHAR LIMIT=NONE] -->
+    <!-- Toast message in editor when new book has failed to be inserted [CHAR LIMIT=NONE] -->
     <string name="editor_insert_book_failed">Error with saving book</string>
 
     <!-- Label for the book's supplier if the supplier is unknown [CHAR LIMIT=20] -->
     <string name="unknown_supplier">Unknown supplier</string>
+    
+    <string name="button_sale">Sale</string>
 </resources>

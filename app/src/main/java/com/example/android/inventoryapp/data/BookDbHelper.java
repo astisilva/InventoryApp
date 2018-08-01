@@ -43,7 +43,9 @@ public class BookDbHelper extends SQLiteOpenHelper {
      *
      * @param context of the app
      */
-    public BookDbHelper(Context context) { super(context, DATABASE_NAME, null, DATABASE_VERSION); }
+    public BookDbHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 
     /**
      * This is called when the database is created for the first time.
@@ -60,7 +62,7 @@ public class BookDbHelper extends SQLiteOpenHelper {
                 + BookEntry.COLUMN_BOOK_PHONE + " INTEGER NOT NULL DEFAULT 0);";
 
         // Execute the SQL statement
-        db.execSQL(SQL_CREATE_BOOKS_TABLE );
+        db.execSQL(SQL_CREATE_BOOKS_TABLE);
     }
 
     /**

@@ -16,14 +16,19 @@
 
 package com.example.android.inventoryapp;
 
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.text.TextUtils;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import com.example.android.inventoryapp.data.BookContract.BookEntry;
 
@@ -71,27 +76,58 @@ public class BookCursorAdapter extends CursorAdapter {
      *                correct row.
      */
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public void bindView(View view, final Context context, Cursor cursor) {
         // Find individual views that we want to modify in the list item layout
         TextView nameTextView = (TextView) view.findViewById(R.id.name);
-        TextView summaryTextView = (TextView) view.findViewById(R.id.summary);
+        TextView priceTextView = (TextView) view.findViewById(R.id.price);
+        TextView quantityTextView = (TextView) view.findViewById(R.id.quantity);
+        Button saleBtn = (Button) view.findViewById(R.id.sale);
 
         // Find the columns of book attributes that we're interested in
         int nameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_NAME);
-        int supplierColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_SUPPLIER);
+        int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_PRICE);
+        int quantityColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_QUANTITY);
+        int idColumnIndex = cursor.getColumnIndex(BookEntry._ID);
 
         // Read the book attributes from the Cursor for the current book
         String bookName = cursor.getString(nameColumnIndex);
-        String bookSupplier = cursor.getString(supplierColumnIndex);
-
-        // If the book supplier is empty string or null, then use some default text
-        // that says "Unknown supplier", so the TextView isn't blank.
-        if (TextUtils.isEmpty(bookSupplier)) {
-            bookSupplier = context.getString(R.string.unknown_supplier);
-        }
+        final int price = cursor.getInt(priceColumnIndex);
+        final int quantity = cursor.getInt(quantityColumnIndex);
+        final int idBook = cursor.getColumnIndex(String.valueOf(idColumnIndex));
 
         // Update the TextViews with the attributes for the current book
         nameTextView.setText(bookName);
-        summaryTextView.setText(bookSupplier);
+        priceTextView.setText(price);
+        quantityTextView.setText(quantity);
+
+
+        saleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int quantity2 = quantity - 1;
+                if (quantity > 0) {
+
+                    Toast.makeText(context, context.getString(R.string.quantity_out_of_stock), Toast.LENGTH_SHORT).show();
+
+                } else {
+                    // Create a ContentValues object where column names are the keys,
+                    // and book attributes from the editor are the values.
+                    ContentValues values = new ContentValues();
+                    values.put(BookEntry.COLUMN_BOOK_QUANTITY, quantity2);
+                    // Form the content URI that represents the specific book that was clicked on,
+                    // by appending the "id" (passed as input to this method) onto the
+                    // {@link BookEntry#CONTENT_URI}.
+                    // For example, the URI would be "content://com.example.android.books/books/2"
+                    // if the book with ID 2 was clicked on.
+                    Uri currentBookUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, idBook);
+                    context.getContentResolver().update(currentBookUri, values, null, null);
+
+
+                }
+
+
+            }
+        });
     }
 }

@@ -83,7 +83,7 @@ public class EditorActivity extends AppCompatActivity implements
     private Spinner mQuantitySpinner;
 
     /**
-     * Gender of the book. The possible valid values are in the BookContract.java file:
+     * Quantity of the book. The possible valid values are in the BookContract.java file:
      * {@link BookEntry#QUANTITY_UNKNOWN}, {@link BookEntry#QUANTITY_IN_STOCK}, or
      * {@link BookEntry#QUANTITY_OUT_OF_STOCK}.
      */
@@ -157,7 +157,7 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     /**
-     * Setup the dropdown spinner that allows the user to select the gender of the book.
+     * Setup the dropdown spinner that allows the user to select the quantity of the book.
      */
     private void setupSpinner() {
         // Create adapter for spinner. The list options are from the String array it will use
@@ -384,7 +384,6 @@ public class EditorActivity extends AppCompatActivity implements
             int supplierColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_SUPPLIER);
             int phoneColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_PHONE);
 
-
             // Extract out the value from the Cursor for the given column index
             String name = cursor.getString(nameColumnIndex);
             int price = cursor.getInt(priceColumnIndex);
@@ -398,11 +397,11 @@ public class EditorActivity extends AppCompatActivity implements
             mSupplierEditText.setText(supplier);
             mPhoneEditText.setText(Integer.toString(phone));
 
-            // Gender is a dropdown spinner, so map the constant value from the database
+            // Quantity is a dropdown spinner, so map the constant value from the database
             // into one of the dropdown options (0 is Unknown, 1 is Male, 2 is Female).
             // Then call setSelection() so that option is displayed on screen as the current selection.
             switch (quantity) {
-                case BookEntry.QUANTITY_IN_STOCK :
+                case BookEntry.QUANTITY_IN_STOCK:
                     mQuantitySpinner.setSelection(1);
                     break;
                 case BookEntry.QUANTITY_OUT_OF_STOCK:
@@ -422,7 +421,7 @@ public class EditorActivity extends AppCompatActivity implements
         mPriceEditText.setText("");
         mSupplierEditText.setText("");
         mPhoneEditText.setText("");
-        mQuantitySpinner.setSelection(0); // Select "Unknown" gender
+        mQuantitySpinner.setSelection(0); // Select "Unknown" quantity
     }
 
     /**

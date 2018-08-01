@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2016 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2016 The Android Open Source Project
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
@@ -13,8 +12,7 @@
 
 
 <!-- Layout for a single list item in the list of books -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -26,13 +24,30 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
         android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="#2B3D4D"  />
+        android:textColor="#2B3D4D" />
 
     <TextView
-        android:id="@+id/summary"
+        android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:textAppearance="?android:textAppearanceSmall"
-        android:textColor="#AEB6BD"  />
+        android:textColor="#AEB6BD" />
+
+    <TextView
+        android:id="@+id/quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="#AEB6BD" />
+
+
+    <Button
+        android:id="@+id/sale"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/button_height"
+        android:text="@string/button_sale" />
+
+
 </LinearLayout>
