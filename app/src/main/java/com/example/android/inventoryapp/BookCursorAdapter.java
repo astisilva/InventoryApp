@@ -93,7 +93,7 @@ public class BookCursorAdapter extends CursorAdapter {
         String bookName = cursor.getString(nameColumnIndex);
         final int price = cursor.getInt(priceColumnIndex);
         final int quantity = cursor.getInt(quantityColumnIndex);
-        final int idBook = cursor.getColumnIndex(String.valueOf(idColumnIndex));
+        final int idBook = cursor.getInt(idColumnIndex);
 
         // Update the TextViews with the attributes for the current book
         nameTextView.setText(bookName);
@@ -106,7 +106,7 @@ public class BookCursorAdapter extends CursorAdapter {
             public void onClick(View view) {
 
                 if (quantity > 0) {
-                    
+
                     int quantity2 = quantity - 1;
                     // Form the content URI that represents the specific book that was clicked on,
                     // by appending the "id" (passed as input to this method) onto the
