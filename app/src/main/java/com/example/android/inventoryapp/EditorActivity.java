@@ -35,6 +35,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -76,6 +77,7 @@ public class EditorActivity extends AppCompatActivity implements
      * EditText field to enter the book's supplier phone number
      */
     private EditText mPhoneEditText;
+
 
     /**
      * EditText field to enter the Book' quantity
@@ -141,7 +143,11 @@ public class EditorActivity extends AppCompatActivity implements
         mPriceEditText = (EditText) findViewById(R.id.edit_book_price);
         mSupplierEditText = (EditText) findViewById(R.id.edit_book_supplier);
         mPhoneEditText = (EditText) findViewById(R.id.edit_book_phone);
-        mQuantitySpinner = (Spinner) findViewById(R.id.spinner_quantity);
+
+        Button Increase = (Button) findViewById(R.id.button_increase);
+        Button Decrease = (Button) findViewById(R.id.button_decrease);
+
+        //mQuantitySpinner = (Spinner) findViewById(R.id.spinner_quantity);
 
 
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
@@ -151,14 +157,21 @@ public class EditorActivity extends AppCompatActivity implements
         mPriceEditText.setOnTouchListener(mTouchListener);
         mSupplierEditText.setOnTouchListener(mTouchListener);
         mPhoneEditText.setOnTouchListener(mTouchListener);
-        mQuantitySpinner.setOnTouchListener(mTouchListener);
+        Increase.setOnTouchListener(mTouchListener);
+        Decrease.setOnTouchListener(mTouchListener);
 
-        setupSpinner();
+        //mQuantitySpinner.setOnTouchListener(mTouchListener);
+
+        //setupSpinner();
+
+
+
+
     }
 
     /**
      * Setup the dropdown spinner that allows the user to select the quantity of the book.
-     */
+
     private void setupSpinner() {
         // Create adapter for spinner. The list options are from the String array it will use
         // the spinner will use the default layout
@@ -194,7 +207,7 @@ public class EditorActivity extends AppCompatActivity implements
             }
         });
     }
-
+ */
     /**
      * Get user input from editor and save book into database.
      */

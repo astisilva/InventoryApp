@@ -105,23 +105,21 @@ public class BookCursorAdapter extends CursorAdapter {
             @Override
             public void onClick(View view) {
 
-                int quantity2 = quantity - 1;
                 if (quantity > 0) {
-
-                    Toast.makeText(context, context.getString(R.string.quantity_out_of_stock), Toast.LENGTH_SHORT).show();
-
-                } else {
-                    // Create a ContentValues object where column names are the keys,
-                    // and book attributes from the editor are the values.
-                    ContentValues values = new ContentValues();
-                    values.put(BookEntry.COLUMN_BOOK_QUANTITY, quantity2);
+                    int quantity2 = quantity - 1;
                     // Form the content URI that represents the specific book that was clicked on,
                     // by appending the "id" (passed as input to this method) onto the
                     // {@link BookEntry#CONTENT_URI}.
                     // For example, the URI would be "content://com.example.android.books/books/2"
                     // if the book with ID 2 was clicked on.
                     Uri currentBookUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, idBook);
+                    // Create a ContentValues object where column names are the keys,
+                    // and book attributes from the editor are the values.
+                    ContentValues values = new ContentValues();
+                    values.put(BookEntry.COLUMN_BOOK_QUANTITY, quantity2);
                     context.getContentResolver().update(currentBookUri, values, null, null);
+                } else {
+                    Toast.makeText(context, context.getString(R.string.quantity_out_of_stock), Toast.LENGTH_SHORT).show();
 
 
                 }

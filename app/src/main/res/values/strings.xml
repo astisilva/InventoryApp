@@ -97,6 +97,8 @@
 
     <string name="unit_book_price">kr</string>
 
+    <string name="hint_book_quantity">Enter quantity</string>
+
     <!-- Label for dropdown menu option if the book's quantity is unknown [CHAR LIMIT=20] -->
     <string name="quantity_unknown">Unknown</string>
 
@@ -116,4 +118,7 @@
     <string name="unknown_supplier">Unknown supplier</string>
     
     <string name="button_sale">Sale</string>
+    <string name="button_increase">+</string>
+    <string name="button_decrease">-</string>
+    <string name="button_phone">Phone</string>
 </resources>

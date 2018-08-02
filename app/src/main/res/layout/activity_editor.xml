@@ -65,13 +65,40 @@
             android:layout_weight="2"
             android:orientation="vertical">
 
-            <!-- quantity drop-down spinner -->
+            <EditText
+                android:id="@+id/input_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_book_quantity"
+                android:inputType="number"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <Button
+            android:id="@+id/button_increase"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:text="@string/button_increase" />
+
+            <Button
+            android:id="@+id/button_decrease"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:text="@string/button_decrease" />
+
+            </LinearLayout>
+
+            <!-- quantity drop-down spinner
             <Spinner
                 android:id="@+id/spinner_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:paddingRight="16dp"
                 android:spinnerMode="dropdown" />
+                -->
         </LinearLayout>
     </LinearLayout>
 
@@ -166,6 +193,16 @@
                 style="@style/EditorFieldStyle"
                 android:hint="@string/hint_book_supplier"
                 android:inputType="textCapWords" />
+
+            <Button
+                android:id="@+id/button_phone"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
+                android:text="@string/button_phone" />
+
+
         </LinearLayout>
+
     </LinearLayout>
+
 </LinearLayout>
