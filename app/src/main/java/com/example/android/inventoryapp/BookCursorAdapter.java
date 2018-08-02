@@ -106,6 +106,7 @@ public class BookCursorAdapter extends CursorAdapter {
             public void onClick(View view) {
 
                 if (quantity > 0) {
+                    
                     int quantity2 = quantity - 1;
                     // Form the content URI that represents the specific book that was clicked on,
                     // by appending the "id" (passed as input to this method) onto the
