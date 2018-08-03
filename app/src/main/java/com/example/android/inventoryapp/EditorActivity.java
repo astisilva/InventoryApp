@@ -83,6 +83,8 @@ public class EditorActivity extends AppCompatActivity implements
      */
     private EditText mInputQuantityEditText;
 
+    int quantity = 0;
+
     /** EditText field to enter the quantity
      private EditText mQuantity;
 
@@ -176,13 +178,12 @@ public class EditorActivity extends AppCompatActivity implements
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         String quantityString = mInputQuantityEditText.getText().toString().trim();
-        int quantity = 0;
         if (TextUtils.isEmpty(quantityString)) {
             Toast.makeText(EditorActivity.this, getString(R.string.quantity_empty), Toast.LENGTH_SHORT).show();
         } else {
             quantity = Integer.parseInt(quantityString);
             quantity++;
-            mInputQuantityEditText.setText(Integer.toString(quantity));
+            mInputQuantityEditText.setText(String.valueOf(quantity));
 
         }
 
@@ -192,19 +193,18 @@ public class EditorActivity extends AppCompatActivity implements
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         String quantityString = mInputQuantityEditText.getText().toString().trim();
-        int quantity = 0;
         if (TextUtils.isEmpty(quantityString)) {
             Toast.makeText(EditorActivity.this, getString(R.string.quantity_empty), Toast.LENGTH_SHORT).show();
         } else {
             quantity = Integer.parseInt(quantityString);
             quantity--;
-            mInputQuantityEditText.setText(Integer.toString(quantity));
+            mInputQuantityEditText.setText(String.valueOf(quantity));
 
         }
 
     }
 
-         /**/
+    /**/
           public void phone(View view) {
 
         // Read from input fields
@@ -473,6 +473,7 @@ public class EditorActivity extends AppCompatActivity implements
                     */
         }
     }
+
 
 
     @Override
