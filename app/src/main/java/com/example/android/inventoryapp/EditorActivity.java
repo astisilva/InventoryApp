@@ -78,18 +78,27 @@ public class EditorActivity extends AppCompatActivity implements
      */
     private EditText mPhoneEditText;
 
+    /**
+     * EditText field to enter the book's quantity
+     */
+    private EditText mInputQuantityEditText;
+
+    /** EditText field to enter the quantity
+     private EditText mQuantity;
+
+     */
 
     /**
      * EditText field to enter the Book' quantity
-     */
-    private Spinner mQuantitySpinner;
 
+     private Spinner mQuantitySpinner;
+     */
     /**
      * Quantity of the book. The possible valid values are in the BookContract.java file:
      * {@link BookEntry#QUANTITY_UNKNOWN}, {@link BookEntry#QUANTITY_IN_STOCK}, or
      * {@link BookEntry#QUANTITY_OUT_OF_STOCK}.
      */
-    private int mQuantity = BookEntry.QUANTITY_UNKNOWN;
+    // private int mQuantity = BookEntry.QUANTITY_UNKNOWN;
 
 
     /**
@@ -143,9 +152,8 @@ public class EditorActivity extends AppCompatActivity implements
         mPriceEditText = (EditText) findViewById(R.id.edit_book_price);
         mSupplierEditText = (EditText) findViewById(R.id.edit_book_supplier);
         mPhoneEditText = (EditText) findViewById(R.id.edit_book_phone);
+        mInputQuantityEditText = (EditText) findViewById(R.id.input_quantity);
 
-        Button Increase = (Button) findViewById(R.id.button_increase);
-        Button Decrease = (Button) findViewById(R.id.button_decrease);
 
         //mQuantitySpinner = (Spinner) findViewById(R.id.spinner_quantity);
 
@@ -157,57 +165,95 @@ public class EditorActivity extends AppCompatActivity implements
         mPriceEditText.setOnTouchListener(mTouchListener);
         mSupplierEditText.setOnTouchListener(mTouchListener);
         mPhoneEditText.setOnTouchListener(mTouchListener);
-        Increase.setOnTouchListener(mTouchListener);
-        Decrease.setOnTouchListener(mTouchListener);
+        mInputQuantityEditText.setOnTouchListener(mTouchListener);
 
         //mQuantitySpinner.setOnTouchListener(mTouchListener);
-
         //setupSpinner();
+    }
 
 
+    public void increment(View view) {
+        // Read from input fields
+        // Use trim to eliminate leading or trailing white space
+        String quantityString = mInputQuantityEditText.getText().toString().trim();
+        int quantity = 0;
+        if (TextUtils.isEmpty(quantityString)) {
+            Toast.makeText(EditorActivity.this, getString(R.string.quantity_empty), Toast.LENGTH_SHORT).show();
+        } else {
+            quantity = Integer.parseInt(quantityString);
+            quantity++;
+            mInputQuantityEditText.setText(Integer.toString(quantity));
 
+        }
 
+    }
+
+    public void decrement(View view) {
+        // Read from input fields
+        // Use trim to eliminate leading or trailing white space
+        String quantityString = mInputQuantityEditText.getText().toString().trim();
+        int quantity = 0;
+        if (TextUtils.isEmpty(quantityString)) {
+            Toast.makeText(EditorActivity.this, getString(R.string.quantity_empty), Toast.LENGTH_SHORT).show();
+        } else {
+            quantity = Integer.parseInt(quantityString);
+            quantity--;
+            mInputQuantityEditText.setText(Integer.toString(quantity));
+
+        }
+
+    }
+
+         /**/
+          public void phone(View view) {
+
+        // Read from input fields
+        // Use trim to eliminate leading or trailing white space
+        String phoneString = mPhoneEditText.getText().toString().trim();
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("phone:" + phoneString));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     /**
      * Setup the dropdown spinner that allows the user to select the quantity of the book.
 
-    private void setupSpinner() {
-        // Create adapter for spinner. The list options are from the String array it will use
-        // the spinner will use the default layout
-        ArrayAdapter quantitySpinnerAdapter = ArrayAdapter.createFromResource(this,
-                R.array.array_quantity_options, android.R.layout.simple_spinner_item);
+     private void setupSpinner() {
+     // Create adapter for spinner. The list options are from the String array it will use
+     // the spinner will use the default layout
+     ArrayAdapter quantitySpinnerAdapter = ArrayAdapter.createFromResource(this,
+     R.array.array_quantity_options, android.R.layout.simple_spinner_item);
 
-        // Specify dropdown layout style - simple list view with 1 item per line
-        quantitySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+     // Specify dropdown layout style - simple list view with 1 item per line
+     quantitySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
-        // Apply the adapter to the spinner
-        mQuantitySpinner.setAdapter(quantitySpinnerAdapter);
+     // Apply the adapter to the spinner
+     mQuantitySpinner.setAdapter(quantitySpinnerAdapter);
 
-        // Set the integer mSelected to the constant values
-        mQuantitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals(getString(R.string.quantity_in_stock))) {
-                        mQuantity = BookEntry.QUANTITY_IN_STOCK;
-                    } else if (selection.equals(getString(R.string.quantity_out_of_stock))) {
-                        mQuantity = BookEntry.QUANTITY_OUT_OF_STOCK;
-                    } else {
-                        mQuantity = BookEntry.QUANTITY_UNKNOWN;
-                    }
-                }
-            }
-
-            // Because AdapterView is an abstract class, onNothingSelected must be defined
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                mQuantity = BookEntry.QUANTITY_UNKNOWN;
-            }
-        });
+     // Set the integer mSelected to the constant values
+     mQuantitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    String selection = (String) parent.getItemAtPosition(position);
+    if (!TextUtils.isEmpty(selection)) {
+    if (selection.equals(getString(R.string.quantity_in_stock))) {
+    mQuantity = BookEntry.QUANTITY_IN_STOCK;
+    } else if (selection.equals(getString(R.string.quantity_out_of_stock))) {
+    mQuantity = BookEntry.QUANTITY_OUT_OF_STOCK;
+    } else {
+    mQuantity = BookEntry.QUANTITY_UNKNOWN;
     }
- */
+    }
+    }
+
+    // Because AdapterView is an abstract class, onNothingSelected must be defined
+    @Override public void onNothingSelected(AdapterView<?> parent) {
+    mQuantity = BookEntry.QUANTITY_UNKNOWN;
+    }
+    });
+     }
+     */
     /**
      * Get user input from editor and save book into database.
      */
@@ -217,13 +263,14 @@ public class EditorActivity extends AppCompatActivity implements
         String nameString = mNameEditText.getText().toString().trim();
         String priceString = mPriceEditText.getText().toString().trim();
         String supplierString = mSupplierEditText.getText().toString().trim();
+        String quantityString = mInputQuantityEditText.getText().toString().trim();
         String phoneString = mPhoneEditText.getText().toString().trim();
 
         // Check if this is supposed to be a new book
         // and check if all the fields in the editor are blank
         if (mCurrentBookUri == null &&
                 TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) &&
-                TextUtils.isEmpty(supplierString) && TextUtils.isEmpty(phoneString) && mQuantity == BookEntry.QUANTITY_UNKNOWN) {
+                TextUtils.isEmpty(supplierString) && TextUtils.isEmpty(phoneString) && TextUtils.isEmpty(quantityString)) {
             // Since no fields were modified, we can return early without creating a new book.
             // No need to create ContentValues and no need to do any ContentProvider operations.
             return;
@@ -234,7 +281,7 @@ public class EditorActivity extends AppCompatActivity implements
         ContentValues values = new ContentValues();
         values.put(BookEntry.COLUMN_BOOK_NAME, nameString);
         values.put(BookEntry.COLUMN_BOOK_SUPPLIER, supplierString);
-        values.put(BookEntry.COLUMN_BOOK_QUANTITY, mQuantity);
+        values.put(BookEntry.COLUMN_BOOK_QUANTITY, quantityString);
         // If the weight is not provided by the user, don't try to parse the string into an
         // integer value. Use 0 by default.
         int price = 0;
@@ -410,7 +457,7 @@ public class EditorActivity extends AppCompatActivity implements
             mSupplierEditText.setText(supplier);
             mPhoneEditText.setText(Integer.toString(phone));
 
-            // Quantity is a dropdown spinner, so map the constant value from the database
+      /*      // Quantity is a dropdown spinner, so map the constant value from the database
             // into one of the dropdown options (0 is Unknown, 1 is Male, 2 is Female).
             // Then call setSelection() so that option is displayed on screen as the current selection.
             switch (quantity) {
@@ -423,9 +470,11 @@ public class EditorActivity extends AppCompatActivity implements
                 default:
                     mQuantitySpinner.setSelection(0);
                     break;
-            }
+                    */
         }
     }
+
+}
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
@@ -434,7 +483,7 @@ public class EditorActivity extends AppCompatActivity implements
         mPriceEditText.setText("");
         mSupplierEditText.setText("");
         mPhoneEditText.setText("");
-        mQuantitySpinner.setSelection(0); // Select "Unknown" quantity
+        //mQuantitySpinner.setSelection(0); // Select "Unknown" quantity
     }
 
     /**
