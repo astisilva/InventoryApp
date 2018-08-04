@@ -81,7 +81,7 @@ public class BookCursorAdapter extends CursorAdapter {
         TextView nameTextView = (TextView) view.findViewById(R.id.name);
         TextView priceTextView = (TextView) view.findViewById(R.id.price);
         TextView quantityTextView = (TextView) view.findViewById(R.id.quantity);
-        Button saleBtn = (Button) view.findViewById(R.id.sale);
+        Button saleBtn =  view.findViewById(R.id.sale);
 
         // Find the columns of book attributes that we're interested in
         int nameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_NAME);
@@ -91,7 +91,7 @@ public class BookCursorAdapter extends CursorAdapter {
 
         // Read the book attributes from the Cursor for the current book
         String bookName = cursor.getString(nameColumnIndex);
-        final int price = cursor.getInt(priceColumnIndex);
+        int price = cursor.getInt(priceColumnIndex);
         final int quantity = cursor.getInt(quantityColumnIndex);
         final int idBook = cursor.getInt(idColumnIndex);
 
@@ -104,10 +104,10 @@ public class BookCursorAdapter extends CursorAdapter {
         saleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                int quantity2 = quantity - 1;
                 if (quantity > 0) {
 
-                    int quantity2 = quantity - 1;
+
                     // Form the content URI that represents the specific book that was clicked on,
                     // by appending the "id" (passed as input to this method) onto the
                     // {@link BookEntry#CONTENT_URI}.

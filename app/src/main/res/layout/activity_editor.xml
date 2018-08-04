@@ -81,12 +81,14 @@
             android:id="@+id/button_increase"
             android:layout_width="@dimen/button_width"
             android:layout_height="@dimen/button_height"
+                android:onClick="increment"
             android:text="@string/button_increase" />
 
             <Button
             android:id="@+id/button_decrease"
             android:layout_width="@dimen/button_width"
             android:layout_height="@dimen/button_height"
+                android:onClick="decrement"
             android:text="@string/button_decrease" />
 
             </LinearLayout>
@@ -198,6 +200,7 @@
                 android:id="@+id/button_phone"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
+                android:onClick="phone"
                 android:text="@string/button_phone" />
 
 
