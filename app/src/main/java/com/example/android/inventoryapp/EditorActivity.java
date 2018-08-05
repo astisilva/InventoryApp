@@ -279,11 +279,48 @@ public class EditorActivity extends AppCompatActivity implements
            Toast.makeText(this, getString(R.string.enter_information), Toast.LENGTH_SHORT).show();
             return;
         }
+        ContentValues values = new ContentValues();
+
+        if (TextUtils.isEmpty(nameString)) {
+            Toast.makeText(this, getString(R.string.enter_book_name),Toast.LENGTH_SHORT).show();
+        }
+        else {
+            values.put(BookEntry.COLUMN_BOOK_NAME, nameString);
+        }
+
+        if (TextUtils.isEmpty(quantityString)) {
+            Toast.makeText(this, getString(R.string.enter_book_quantity),Toast.LENGTH_SHORT).show();
+        }
+        else {
+            values.put(BookEntry.COLUMN_BOOK_QUANTITY, quantityString);
+        }
+
+        if (TextUtils.isEmpty(priceString)) {
+            Toast.makeText(this, getString(R.string.enter_book_price),Toast.LENGTH_SHORT).show();
+        }
+        else {
+            values.put(BookEntry.COLUMN_BOOK_PRICE, priceString);
+        }
+
+        if (TextUtils.isEmpty(supplierString)) {
+            Toast.makeText(this, getString(R.string.enter_book_supplier),Toast.LENGTH_SHORT).show();
+        }
+        else {
+            values.put(BookEntry.COLUMN_BOOK_PRICE, supplierString);
+        }
+
+        if (TextUtils.isEmpty(phoneString)) {
+            Toast.makeText(this, getString(R.string.enter_book_phone),Toast.LENGTH_SHORT).show();
+        }
+        else {
+            values.put(BookEntry.COLUMN_BOOK_PRICE, phoneString);
+        }
+
 
 
 
         // Create a ContentValues object where column names are the keys,
-        // and book attributes from the editor are the values.
+       // and book attributes from the editor are the values.
         ContentValues values = new ContentValues();
         values.put(BookEntry.COLUMN_BOOK_NAME, nameString);
         values.put(BookEntry.COLUMN_BOOK_PRICE, priceString);
@@ -292,7 +329,7 @@ public class EditorActivity extends AppCompatActivity implements
         values.put(BookEntry.COLUMN_BOOK_QUANTITY, quantityString);
         // If the weight is not provided by the user, don't try to parse the string into an
         // integer value. Use 0 by default.
-       /* int price = 0;
+       /*  int price = 0;
         if (!TextUtils.isEmpty(priceString)) {
             price = Integer.parseInt(priceString);
         }
@@ -352,7 +389,7 @@ public class EditorActivity extends AppCompatActivity implements
                 // Save book to database
                 saveBook();
                 // Exit activity
-                finish();
+               // finish();
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
@@ -463,7 +500,7 @@ public class EditorActivity extends AppCompatActivity implements
             mNameEditText.setText(name);
             mPriceEditText.setText(Integer.toString(price));
             mSupplierEditText.setText(supplier);
-            mQuantityEditText.setText(quantity);
+            mQuantityEditText.setText(Integer.toString(quantity));
             mPhoneEditText.setText(Integer.toString(phone));
 
       /*      // Quantity is a dropdown spinner, so map the constant value from the database
