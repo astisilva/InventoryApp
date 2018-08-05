@@ -78,7 +78,7 @@
     <string name="category_price">Price</string>
 
     <!-- Label for phone information in the editor [CHAR LIMIT=30] -->
-    <string name="category_phone">Phone</string>
+    <string name="category_phone">Supplier - Phone</string>
 
     <!-- Label for supplier information in the editor [CHAR LIMIT=30] -->
     <string name="category_supplier">Supplier</string>
@@ -90,7 +90,7 @@
     <string name="hint_book_price">Price</string>
 
     <!-- Text hint for supplier field in the editor [CHAR LIMIT=30] -->
-    <string name="hint_book_supplier">Supplier</string>
+    <string name="hint_book_supplier">Supplier name+</string>
 
     <!-- Phone of the book supplier [CHAR LIMIT=5] -->
     <string name="hint_book_phone">Phone</string>
@@ -107,6 +107,8 @@
 
     <!-- Label for dropdown menu option if the book is out of stock[CHAR LIMIT=20] -->
     <string name="quantity_out_of_stock">Out of stock</string>
+    !-- Label for dropdown menu option if the book is out of stock[CHAR LIMIT=20] -->
+    <string name="quantity_no_negative">No negative quantity alowed</string>
 
     <!-- Toast message in editor when new book has been successfully inserted [CHAR LIMIT=NONE] -->
     <string name="editor_insert_book_successful">Book saved</string>
@@ -116,6 +118,21 @@
 
     <!-- Label for the book's supplier if the supplier is unknown [CHAR LIMIT=20] -->
     <string name="unknown_supplier">Unknown supplier</string>
+
+    <!-- Enter book information [CHAR LIMIT=20] -->
+    <string name="enter_information">Please enter book information</string>
+
+    <string name="enter_book_name">Please enter a book name</string>
+
+    <string name="enter_book_price">Please enter a book price</string>
+
+    <string name="enter_book_quantity">Please enter a book quantity</string>
+
+    <string name="enter_book_supplier">Please enter a book supplier</string>
+
+    <string name="enter_book_phone">Please enter a book supplier phone</string>
+
+
     
     <string name="button_sale">Sale</string>
     <string name="button_increase">+</string>

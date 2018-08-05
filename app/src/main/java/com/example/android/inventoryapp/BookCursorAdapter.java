@@ -97,8 +97,8 @@ public class BookCursorAdapter extends CursorAdapter {
 
         // Update the TextViews with the attributes for the current book
         nameTextView.setText(bookName);
-        priceTextView.setText(price);
-        quantityTextView.setText(quantity);
+        priceTextView.setText(String.valueOf(price));
+        quantityTextView.setText(String.valueOf(quantity));
 
 
         saleBtn.setOnClickListener(new View.OnClickListener() {

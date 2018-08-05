@@ -81,7 +81,7 @@ public class EditorActivity extends AppCompatActivity implements
     /**
      * EditText field to enter the book's quantity
      */
-    private EditText mInputQuantityEditText;
+    private EditText mQuantityEditText;
 
     int quantity = 0;
 
@@ -154,7 +154,7 @@ public class EditorActivity extends AppCompatActivity implements
         mPriceEditText = (EditText) findViewById(R.id.edit_book_price);
         mSupplierEditText = (EditText) findViewById(R.id.edit_book_supplier);
         mPhoneEditText = (EditText) findViewById(R.id.edit_book_phone);
-        mInputQuantityEditText = (EditText) findViewById(R.id.input_quantity);
+        mQuantityEditText = (EditText) findViewById(R.id.input_quantity);
 
 
         //mQuantitySpinner = (Spinner) findViewById(R.id.spinner_quantity);
@@ -167,7 +167,7 @@ public class EditorActivity extends AppCompatActivity implements
         mPriceEditText.setOnTouchListener(mTouchListener);
         mSupplierEditText.setOnTouchListener(mTouchListener);
         mPhoneEditText.setOnTouchListener(mTouchListener);
-        mInputQuantityEditText.setOnTouchListener(mTouchListener);
+        mQuantityEditText.setOnTouchListener(mTouchListener);
 
         //mQuantitySpinner.setOnTouchListener(mTouchListener);
         //setupSpinner();
@@ -177,13 +177,13 @@ public class EditorActivity extends AppCompatActivity implements
     public void increment(View view) {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
-        String quantityString = mInputQuantityEditText.getText().toString().trim();
+        String quantityString = mQuantityEditText.getText().toString().trim();
         if (TextUtils.isEmpty(quantityString)) {
             Toast.makeText(EditorActivity.this, getString(R.string.quantity_empty), Toast.LENGTH_SHORT).show();
         } else {
             quantity = Integer.parseInt(quantityString);
             quantity++;
-            mInputQuantityEditText.setText(String.valueOf(quantity));
+            mQuantityEditText.setText(String.valueOf(quantity));
 
         }
 
@@ -192,14 +192,17 @@ public class EditorActivity extends AppCompatActivity implements
     public void decrement(View view) {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
-        String quantityString = mInputQuantityEditText.getText().toString().trim();
+        String quantityString = mQuantityEditText.getText().toString().trim();
         if (TextUtils.isEmpty(quantityString)) {
             Toast.makeText(EditorActivity.this, getString(R.string.quantity_empty), Toast.LENGTH_SHORT).show();
         } else {
             quantity = Integer.parseInt(quantityString);
-            quantity--;
-            mInputQuantityEditText.setText(String.valueOf(quantity));
+            do {
+                quantity--;
+                mQuantityEditText.setText(String.valueOf(quantity));
+                Toast.makeText(EditorActivity.this, getString(R.string.quantity_no_negative), Toast.LENGTH_SHORT).show();
 
+            }while (quantity < 0);
         }
 
     }
@@ -263,7 +266,7 @@ public class EditorActivity extends AppCompatActivity implements
         String nameString = mNameEditText.getText().toString().trim();
         String priceString = mPriceEditText.getText().toString().trim();
         String supplierString = mSupplierEditText.getText().toString().trim();
-        String quantityString = mInputQuantityEditText.getText().toString().trim();
+        String quantityString = mQuantityEditText.getText().toString().trim();
         String phoneString = mPhoneEditText.getText().toString().trim();
 
         // Check if this is supposed to be a new book
@@ -273,22 +276,28 @@ public class EditorActivity extends AppCompatActivity implements
                 TextUtils.isEmpty(supplierString) && TextUtils.isEmpty(phoneString) && TextUtils.isEmpty(quantityString)) {
             // Since no fields were modified, we can return early without creating a new book.
             // No need to create ContentValues and no need to do any ContentProvider operations.
+
+           Toast.makeText(this, getString(R.string.enter_information), Toast.LENGTH_SHORT).show();
             return;
         }
+
+
 
         // Create a ContentValues object where column names are the keys,
         // and book attributes from the editor are the values.
         ContentValues values = new ContentValues();
         values.put(BookEntry.COLUMN_BOOK_NAME, nameString);
+        values.put(BookEntry.COLUMN_BOOK_PRICE, priceString);
+        values.put(BookEntry.COLUMN_BOOK_PHONE, phoneString);
         values.put(BookEntry.COLUMN_BOOK_SUPPLIER, supplierString);
         values.put(BookEntry.COLUMN_BOOK_QUANTITY, quantityString);
         // If the weight is not provided by the user, don't try to parse the string into an
         // integer value. Use 0 by default.
-        int price = 0;
+       /* int price = 0;
         if (!TextUtils.isEmpty(priceString)) {
             price = Integer.parseInt(priceString);
         }
-        values.put(BookEntry.COLUMN_BOOK_PRICE, price);
+        values.put(BookEntry.COLUMN_BOOK_PRICE, price);*/
 
         // Determine if this is a new or existing book by checking if mCurrentBookUri is null or not
         if (mCurrentBookUri == null) {
@@ -455,6 +464,7 @@ public class EditorActivity extends AppCompatActivity implements
             mNameEditText.setText(name);
             mPriceEditText.setText(Integer.toString(price));
             mSupplierEditText.setText(supplier);
+            mQuantityEditText.setText(quantity);
             mPhoneEditText.setText(Integer.toString(phone));
 
       /*      // Quantity is a dropdown spinner, so map the constant value from the database
@@ -481,6 +491,7 @@ public class EditorActivity extends AppCompatActivity implements
         // If the loader is invalidated, clear out all the data from the input fields.
         mNameEditText.setText("");
         mPriceEditText.setText("");
+        mQuantityEditText.setText("");
         mSupplierEditText.setText("");
         mPhoneEditText.setText("");
         //mQuantitySpinner.setSelection(0); // Select "Unknown" quantity
