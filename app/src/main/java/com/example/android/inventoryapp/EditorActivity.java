@@ -319,7 +319,7 @@ public class EditorActivity extends AppCompatActivity implements
 
         // Create a ContentValues object where column names are the keys,
        // and book attributes from the editor are the values.
-        ContentValues values = new ContentValues();
+        //ContentValues values = new ContentValues();
         values.put(BookEntry.COLUMN_BOOK_NAME, nameString);
         values.put(BookEntry.COLUMN_BOOK_PRICE, priceString);
         values.put(BookEntry.COLUMN_BOOK_PHONE, phoneString);
@@ -387,7 +387,7 @@ public class EditorActivity extends AppCompatActivity implements
                 // Save book to database
                 saveBook();
                 // Exit activity
-               // finish();
+                //finish();
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
