@@ -12,6 +12,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.inventoryapp">
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -41,6 +42,7 @@
             android:name=".data.BookProvider"
             android:authorities="com.example.android.inventoryapp"
             android:exported="false" />
+
 
     </application>
 
