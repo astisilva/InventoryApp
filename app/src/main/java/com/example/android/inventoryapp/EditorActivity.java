@@ -317,8 +317,6 @@ public class EditorActivity extends AppCompatActivity implements
         }
 
 
-
-
         // Create a ContentValues object where column names are the keys,
        // and book attributes from the editor are the values.
         ContentValues values = new ContentValues();
