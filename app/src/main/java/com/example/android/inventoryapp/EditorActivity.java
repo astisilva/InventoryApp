@@ -207,9 +207,8 @@ public class EditorActivity extends AppCompatActivity implements
 
     }
 
-    /**/
+    /*Phone to call the supplier*/
           public void phone(View view) {
-
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
         String phoneString = mPhoneEditText.getText().toString().trim();

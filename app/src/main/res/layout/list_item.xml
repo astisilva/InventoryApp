@@ -47,6 +47,7 @@
         android:id="@+id/sale"
         android:layout_width="@dimen/button_width"
         android:layout_height="@dimen/button_height"
+        android:focusable="false"
         android:text="@string/button_sale" />
 
 
