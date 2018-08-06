@@ -197,14 +197,15 @@ public class EditorActivity extends AppCompatActivity implements
             Toast.makeText(EditorActivity.this, getString(R.string.quantity_empty), Toast.LENGTH_SHORT).show();
         } else {
             quantity = Integer.parseInt(quantityString);
-            do {
+            if (quantity > 0) {
                 quantity--;
                 mQuantityEditText.setText(String.valueOf(quantity));
+            } else {
                 Toast.makeText(EditorActivity.this, getString(R.string.quantity_no_negative), Toast.LENGTH_SHORT).show();
 
-            }while (quantity < 0);
-        }
+            }
 
+        }
     }
 
     /*Phone to call the supplier*/
@@ -275,6 +276,7 @@ public class EditorActivity extends AppCompatActivity implements
                 TextUtils.isEmpty(supplierString) && TextUtils.isEmpty(phoneString) && TextUtils.isEmpty(quantityString)) {
             // Since no fields were modified, we can return early without creating a new book.
             // No need to create ContentValues and no need to do any ContentProvider operations.
+            Toast.makeText(this, getString(R.string.enter_information), Toast.LENGTH_SHORT).show();
             return;
         }
         ContentValues values = new ContentValues();
@@ -312,7 +314,7 @@ public class EditorActivity extends AppCompatActivity implements
         }
 
         else {
-            values.put(BookEntry.COLUMN_BOOK_PRICE, supplierString);
+            values.put(BookEntry.COLUMN_BOOK_SUPPLIER, supplierString);
         }
 
         if (TextUtils.isEmpty(phoneString)) {
@@ -321,7 +323,7 @@ public class EditorActivity extends AppCompatActivity implements
 
         }
         else {
-            values.put(BookEntry.COLUMN_BOOK_PRICE, phoneString);
+            values.put(BookEntry.COLUMN_BOOK_PHONE, phoneString);
         }
 
 
@@ -366,7 +368,10 @@ public class EditorActivity extends AppCompatActivity implements
                 Toast.makeText(this, getString(R.string.editor_update_book_successful),
                         Toast.LENGTH_SHORT).show();
             }
+
+
         }
+        finish();
     }
 
 
@@ -387,7 +392,7 @@ public class EditorActivity extends AppCompatActivity implements
                 // Save book to database
                 saveBook();
                 // Exit activity
-                finish();
+               // finish();
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:

@@ -114,7 +114,7 @@ public class CatalogActivity extends AppCompatActivity implements
         ContentValues values = new ContentValues();
         values.put(BookEntry.COLUMN_BOOK_NAME, "Prince");
         values.put(BookEntry.COLUMN_BOOK_PRICE, 78);
-        values.put(BookEntry.COLUMN_BOOK_QUANTITY, BookEntry.QUANTITY_IN_STOCK);
+        values.put(BookEntry.COLUMN_BOOK_QUANTITY, 1);
         values.put(BookEntry.COLUMN_BOOK_SUPPLIER, "adlibris");
         values.put(BookEntry.COLUMN_BOOK_PHONE, 7457);
 

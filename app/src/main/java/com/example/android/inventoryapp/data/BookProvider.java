@@ -136,7 +136,7 @@ public class BookProvider extends ContentProvider {
 
         // Check that the quantity is valid
         Integer quantity = values.getAsInteger(BookEntry.COLUMN_BOOK_QUANTITY);
-        if (quantity == null || !BookEntry.isValidQuantity(quantity)) {
+        if (quantity != null && quantity < 0) {
             throw new IllegalArgumentException("Book requires valid quantity, no negative quantity");
         }
 
@@ -204,7 +204,7 @@ public class BookProvider extends ContentProvider {
         // check that the quantity value is valid.
         if (values.containsKey(BookEntry.COLUMN_BOOK_QUANTITY)) {
             Integer quantity = values.getAsInteger(BookEntry.COLUMN_BOOK_QUANTITY);
-            if (quantity == null || !BookEntry.isValidQuantity(quantity)) {
+            if (quantity != null && quantity < 0) {
                 throw new IllegalArgumentException("Book requires valid quantity");
             }
         }

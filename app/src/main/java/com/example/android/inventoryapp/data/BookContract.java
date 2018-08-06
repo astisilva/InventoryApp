@@ -126,21 +126,21 @@ public final class BookContract {
 
         /**
          * Possible values for the book quantity.
-         */
+
         public static final int QUANTITY_UNKNOWN = 0;
         public static final int QUANTITY_IN_STOCK = 1;
         public static final int QUANTITY_OUT_OF_STOCK = 2;
-
+         */
         /**
          * Returns whether or not the given quantity is {@link #QUANTITY_UNKNOWN}, {@link #QUANTITY_IN_STOCK},
          * or {@link #QUANTITY_OUT_OF_STOCK).
-         */
+
         public static boolean isValidQuantity(int quantity) {
             if (quantity == QUANTITY_UNKNOWN || quantity == QUANTITY_IN_STOCK || quantity == QUANTITY_OUT_OF_STOCK) {
                 return true;
             }
             return false;
-        }
+        } */
     }
 
 }
